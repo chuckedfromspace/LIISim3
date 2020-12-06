@@ -16,6 +16,8 @@ public:
     explicit FT_FitRunTreeItem(FT_ResultVisualization *visualizationWidget, FitRun *fitRun, QTreeWidgetItem *parent);
     ~FT_FitRunTreeItem();
 
+    void ExportFitRun(QString& dirName);
+
 private:
     void cleanup();
 

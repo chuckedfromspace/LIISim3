@@ -77,6 +77,8 @@ public:
     double sectionBegin();
     double sectionEnd();
 
+    void Export(std::ostream& os);
+
 private:
 
     FitMode m_mode;

@@ -50,6 +50,40 @@ FT_FitRunTreeItem::~FT_FitRunTreeItem()
     }
 }
 
+void FT_FitRunTreeItem::ExportFitRun(QString& dirName) {
+
+   QDateTime creationDate = this->mFitRun->creationDate();//QDateTime::currentDateTime();
+   QString datestr = creationDate.toString("yyyy-MM-dd_hh-mm");
+   QString fileName = dirName + "/" + datestr + "_" + this->mFitRun->name() + ".txt";
+
+   std::ofstream os(fileName.toStdString());
+
+   this->mFitRun->Export(os);
+
+   os << "Chisquare" << ";"
+      << "Lambda" << ";"
+      << "Dp /nm" << ";"
+      << "Delta Dp" << ";"
+      << "Tg /K" << ";"
+      << "Delta Tg" << ";"
+      << "Tpeak /K" << ";"
+      << "Delta Tpeak"
+      << std::endl;
+
+   int sourcesCount = this->childCount();
+
+   for (int sourceIndex = 0; sourceIndex < sourcesCount; sourceIndex++) {
+
+      FT_RunListFitDataItem* item = dynamic_cast<FT_RunListFitDataItem*>(this->child(sourceIndex));
+
+      if (item->isChecked()) {
+         item->ExportFitSource(os);
+      }
+   }
+
+   os.close();
+}
+
 
 void FT_FitRunTreeItem::cleanup()
 {

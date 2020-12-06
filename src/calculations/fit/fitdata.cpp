@@ -396,3 +396,14 @@ QVector<double> FitData::getParameterCurve(int param)
 
     return curve;
 }
+
+void FitData::Export(std::ostream& os) {
+
+   QVectorIterator<double> itResult(this->iterationResultLast());
+   os << itResult.next();
+    while (itResult.hasNext()) {
+       os << ";" << itResult.next();
+    }
+
+    os << std::endl;
+}

@@ -27,6 +27,8 @@ public:
 
     void cleanup();
 
+    void ExportFitSource(std::ostream& os);
+
 private:
     void setCurveState(bool enabled);
 

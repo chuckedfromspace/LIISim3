@@ -377,3 +377,8 @@ QString FitRun::modeToString(FitMode mode)
     }
     return res;
 }
+
+void FitRun::Export(std::ostream& os) {
+   //os << "..." << std::endl;
+   //this->m_initModelingSettings->
+}

@@ -10,6 +10,10 @@
 #include "../../signal/signal.h"
 #include "../../signal/mrun.h"
 
+#include <iostream>
+#include <fstream>
+#include <ostream>
+
 class FitRun;
 
 /**
@@ -75,6 +79,8 @@ public:
     void setFitRun(FitRun* fr){m_fitrun = fr;}
 
     QVector<double> getParameterCurve(int param);
+
+    void Export(std::ostream& os);
 
 private:
 

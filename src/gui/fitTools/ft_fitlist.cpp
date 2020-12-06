@@ -5,6 +5,7 @@
 #include <QCheckBox>
 #include <QMenu>
 #include <QHeaderView>
+#include <QFileDialog>
 
 #include "core.h"
 #include "ft_resultvisualization.h"
@@ -29,6 +30,7 @@ FT_FitList::FT_FitList(FT_ResultVisualization *visualizationWidget, FT_DataVisua
     QHBoxLayout *layoutButton = new QHBoxLayout;
     layoutButton->setMargin(0);
     buttonClearList = new QPushButton("Clear FitList", this);
+    buttonExportFitRuns = new QPushButton("Export selected runs", this);
     buttonFit = new QPushButton("Start Fitting");
     buttonFit->setObjectName("FC_BTN_START_FIT");
     buttonSim = new QPushButton("Simulate");
@@ -40,6 +42,7 @@ FT_FitList::FT_FitList(FT_ResultVisualization *visualizationWidget, FT_DataVisua
     layoutButton->addWidget(buttonCancel, 0, Qt::AlignLeft);
     layoutButton->addWidget(buttonSim, 0, Qt::AlignLeft);
     layoutButton->addStretch(-1);
+    layoutButton->addWidget(buttonExportFitRuns, 0, Qt::AlignRight);
     layoutButton->addWidget(buttonClearList, 0, Qt::AlignRight);
 
     mainLayout->addLayout(layoutButton);
@@ -81,6 +84,7 @@ FT_FitList::FT_FitList(FT_ResultVisualization *visualizationWidget, FT_DataVisua
     connect(dataVisualization, SIGNAL(dataTableRowClicked(int)), SLOT(onDataTableCellClicked(int)));
 
     connect(buttonClearList, SIGNAL(clicked(bool)), SLOT(onButtonClearListClicked()));
+    connect(buttonExportFitRuns, SIGNAL(clicked(bool)), SLOT(onButtonExportFitRunsClicked()));
     connect(buttonFit, SIGNAL(clicked(bool)), SLOT(onButtonFitClicked()));
     connect(buttonSim, SIGNAL(clicked(bool)), SLOT(onButtonSimClicked()));
     connect(buttonCancel, SIGNAL(clicked(bool)), SLOT(onButtonCancelClicked()));
@@ -145,6 +149,37 @@ void FT_FitList::onButtonClearListClicked()
     dataVisualization->clearParameterTable();
 }
 
+void FT_FitList::onButtonExportFitRunsClicked() {
+   QString dirName;
+
+   if (dirName.isEmpty()) {
+      dirName = QFileDialog::getExistingDirectory(
+         QApplication::focusWidget(),
+         "export fit runs results",
+         Core::instance()->generalSettings->dataDirectory(),
+         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks
+      );
+   }
+
+   if (dirName.isEmpty()) {
+      return;
+   }
+
+   int fitRunCount = treeWidget->invisibleRootItem()->childCount();
+   for (int runIndex = 0; runIndex < fitRunCount; runIndex++) {
+
+      FT_FitRunTreeItem* fitRun = dynamic_cast<FT_FitRunTreeItem*>(
+         treeWidget->invisibleRootItem()->child(runIndex));
+
+      if (fitRun->checkboxFitRun->checkState() == Qt::CheckState::Checked ||
+         fitRun->checkboxFitRun->checkState() == Qt::CheckState::PartiallyChecked) 
+      {
+         fitRun->ExportFitRun(dirName);
+      }
+   }
+
+}
+
 
 void FT_FitList::onNewSimRun(SimRun *simRun)
 {
@@ -181,6 +216,7 @@ void FT_FitList::onFitStateChanged(bool state)
         buttonFit->setVisible(false);
         buttonCancel->setVisible(true);
         buttonSim->setEnabled(false);
+        buttonExportFitRuns->setEnabled(false);
         buttonClearList->setEnabled(false);
     }
     else
@@ -188,6 +224,7 @@ void FT_FitList::onFitStateChanged(bool state)
         buttonFit->setVisible(true);
         buttonCancel->setVisible(false);
         buttonSim->setEnabled(true);
+        buttonExportFitRuns->setEnabled(true);
         buttonClearList->setEnabled(true);
     }
 }

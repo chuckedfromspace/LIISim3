@@ -24,6 +24,7 @@ private:
     FT_ResultVisualization *visualizationWidget;
     FT_DataVisualization *dataVisualization;
     QPushButton *buttonClearList;
+    QPushButton* buttonExportFitRuns;
     QPushButton *buttonFit;
     QPushButton *buttonSim;
     QPushButton *buttonCancel;
@@ -36,6 +37,7 @@ private slots:
     void onDataTableCellClicked(int row);
 
     void onButtonClearListClicked();
+    void onButtonExportFitRunsClicked();
     void onButtonFitClicked();
     void onButtonSimClicked();
     void onButtonCancelClicked();

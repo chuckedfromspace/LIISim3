@@ -1,4 +1,4 @@
-#include "ft_runlistfitdataitem.h"
+﻿#include "ft_runlistfitdataitem.h"
 
 #include "ft_resultvisualization.h"
 #include "ft_plotcurve.h"
@@ -331,6 +331,10 @@ void FT_RunListFitDataItem::cleanup()
     delete curveRadiation;
 }
 
+void FT_RunListFitDataItem::ExportFitSource(std::ostream& os) {
+
+   this->mFitData.Export(os);
+}
 
 void FT_RunListFitDataItem::onSpinboxIterationChanged(int value)
 {
