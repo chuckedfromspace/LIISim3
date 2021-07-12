@@ -3,7 +3,7 @@ build*/
 debug*/
 release*/
 example*/
-src/.vscode/
+src/.vscode
 src/release*/
 src/release*/
 src/externalLibraries/
@@ -11,4 +11,5 @@ src/LII*.*
 src/logfile.txt
 src/*.xml
 src/*.stash
-src/.vs/
+src/.vs
+.vs
