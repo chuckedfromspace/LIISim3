@@ -255,16 +255,21 @@ QString FitData::toString()
     MRun* r = Core::instance()->dataModel()->mrun(m_in_mrun_id);
     if(r) runname = r->getName();
 
-    QString res = QString("FitData: %0 mp: %1 ch: %2 %3 num iteration results: %4\n")
-            .arg(runname)
-            .arg(m_in_mp_idx)
-            .arg(m_in_ch_id)
-            .arg(Signal::stypeToString(m_in_stype))
-            .arg(m_iterationResults.size());
-    for(int i = 0; i < m_iterationResults.size(); i++)
-    {
-        res.append(QString("\t%0\n").arg(m_iterationResults[i].toString()));
-    }
+    //QString res = QString("FitData: %0 mp: %1 ch: %2 %3 num iteration results: %4\n")
+    //        .arg(runname)
+    //        .arg(m_in_mp_idx)
+    //        .arg(m_in_ch_id)
+    //        .arg(Signal::stypeToString(m_in_stype))
+    //        .arg(m_iterationResults.size());
+    //QString header = QString("Chisquare Lambda  Dp /nm  Delta Dp    Tg /K   Delta Tg    Tpeak /K    Delta Tpeak\n");
+    QString res = QString("%0\t%1")
+        .arg(runname)
+        .arg(m_iterationResults[m_iterationResults.size() - 1].toString());
+    //header.append(res);
+    //for(int i = 0; i < m_iterationResults.size(); i++)
+    //{1
+    //res.append(QString("\t%0\n").arg(m_iterationResults[m_iterationResults.size() - 1].toString()));
+    //}
     return res;
 }
 

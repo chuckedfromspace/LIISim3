@@ -275,8 +275,10 @@ QString FitRun::toString()
     res.append("\n"+m_fitSettings->toString());
     res.append("\n"+m_initModelingSettings->toString());
     res.append("\n"+m_numericSettings->toString());
+    res.append("\nFitResults");
+    res.append("\nName\tChisquare\tLambda\tDp[nm]\tDelta_Dp\tTg[K]\tDelta_Tg\tTpeak[K]\tDelta_Tpeak");
     for(int i = 0; i < m_fitData.size(); i++)
-        res.append("\n  "+m_fitData[i].toString());
+        res.append("\n"+m_fitData[i].toString());
     return res;
 }
 
@@ -379,6 +381,5 @@ QString FitRun::modeToString(FitMode mode)
 }
 
 void FitRun::Export(std::ostream& os) {
-   //os << "..." << std::endl;
-   //this->m_initModelingSettings->
+    //os << "..." << std::endl;
 }

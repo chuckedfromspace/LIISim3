@@ -58,28 +58,30 @@ void FT_FitRunTreeItem::ExportFitRun(QString& dirName) {
 
    std::ofstream os(fileName.toStdString());
 
-   this->mFitRun->Export(os);
+   //this->mFitRun->Export(os);
+  
+   //os << "Name" << "\t"
+   //   << "Chisquare" << "\t"
+   //   << "Lambda" << "\t"
+   //   << "Dp /nm" << "\t"
+   //   << "Delta Dp" << "\t"
+   //   << "Tg /K" << "\t"
+   //   << "Delta Tg" << "\t"
+   //   << "Tpeak /K" << "\t"
+   //   << "Delta Tpeak"
+   //   << std::endl;
+   os << mFitRun->toString().toStdString();
 
-   os << "Chisquare" << ";"
-      << "Lambda" << ";"
-      << "Dp /nm" << ";"
-      << "Delta Dp" << ";"
-      << "Tg /K" << ";"
-      << "Delta Tg" << ";"
-      << "Tpeak /K" << ";"
-      << "Delta Tpeak"
-      << std::endl;
+   //int sourcesCount = this->childCount();
 
-   int sourcesCount = this->childCount();
+   //for (int sourceIndex = 0; sourceIndex < sourcesCount; sourceIndex++) {
 
-   for (int sourceIndex = 0; sourceIndex < sourcesCount; sourceIndex++) {
+   //   FT_RunListFitDataItem* item = dynamic_cast<FT_RunListFitDataItem*>(this->child(sourceIndex));
 
-      FT_RunListFitDataItem* item = dynamic_cast<FT_RunListFitDataItem*>(this->child(sourceIndex));
-
-      if (item->isChecked()) {
-         item->ExportFitSource(os);
-      }
-   }
+   //   if (item->isChecked()) {
+   //      item->ExportFitSource(os);
+   //   }
+   //}
 
    os.close();
 }
