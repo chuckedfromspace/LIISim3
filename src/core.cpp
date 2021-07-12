@@ -33,8 +33,8 @@ const bool Core::LIISIM_LARGE_FONTS = false; // larger plot fonts for screenshot
 // ----------------------
 // PROGRAM ROOT DIRECTORY
 // ----------------------
-const QString Core::rootDir = "../src/";   // useful for developement (build directory is in LIISim3 directory)
-//const QString Core::rootDir = "";            // use same folder as .exe
+//const QString Core::rootDir = "../src/";   // useful for developement (build directory is in LIISim3 directory)
+const QString Core::rootDir = "";            // use same folder as .exe
 
 Core::Core() : QObject(0)
 {
